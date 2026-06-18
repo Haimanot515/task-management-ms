@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/task-management-ms/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/task-management-ms/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/task-management-ms",
+  "projects": {
+    "api-gatway": {
+      "type": "application",
+      "root": "apps/api-gatway",
+      "entryFile": "main",
+      "sourceRoot": "apps/api-gatway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/api-gatway/tsconfig.app.json"
+      }
+    },
+    "notification-service": {
+      "type": "application",
+      "root": "apps/notification-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/notification-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/notification-service/tsconfig.app.json"
+      }
+    },
+    "shared": {
+      "type": "library",
+      "root": "libs/shared",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/tsconfig.lib.json"
+      }
+    },
+    "task-management-ms": {
+      "type": "application",
+      "root": "apps/task-management-ms",
+      "entryFile": "main",
+      "sourceRoot": "apps/task-management-ms/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/task-management-ms/tsconfig.app.json"
+      }
+    },
+    "task-service": {
+      "type": "application",
+      "root": "apps/task-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/task-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/task-service/tsconfig.app.json"
+      }
+    }
+  }
+}
