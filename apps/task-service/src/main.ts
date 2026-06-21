@@ -1,8 +1,27 @@
-import { NestFactory } from '@nestjs/core';
-import { TaskServiceModule } from './task-service.module';
+import {NestFactory} from '@nestjs/core';
+import {Transport} from '@nestjs/microservices';
+import {AppModule} from './app.module';
+import {RMQ} from '@app/shared/rabbitmq/rabbitmq.constants';
 
-async function bootstrap() {
-  const app = await NestFactory.create(TaskServiceModule);
-  await app.listen(process.env.port ?? 3000);
+async function bootstrap(){
+  const app=await NestFactory.createMicroservice(
+    AppModule,
+    {
+      transport:Transport.RMQ,
+      options:{
+        urls:[RMQ.URL],
+        queue:RMQ.TASK_QUEUE,
+        noAck:false,
+
+        queueOptions:{
+          durable:true,
+
+          deadLetterExchange:'',
+          deadLetterRoutingKey:RMQ.TASK_DLQ,
+        },
+      },
+    },
+  );
+  app.listen();
 }
 bootstrap();
