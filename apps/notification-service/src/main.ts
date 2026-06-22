@@ -1,8 +1,30 @@
 import { NestFactory } from '@nestjs/core';
-import { NotificationServiceModule } from './notification-service.module';
+import { Transport } from '@nestjs/microservices';
+import { AppModule } from './app.module';
+import { RMQ } from '@app/shared/rabbitmq/rabbitmq.constants';
 
 async function bootstrap() {
-  const app = await NestFactory.create(NotificationServiceModule);
-  await app.listen(process.env.port ?? 3000);
+  const app =
+    await NestFactory.createMicroservice(
+      AppModule,
+      {
+        transport: Transport.RMQ,
+        options: {
+          urls: [RMQ.URL],
+
+          queue:
+            RMQ.NOTIFICATION_QUEUE,
+
+          noAck: false,
+
+          queueOptions: {
+            durable: true,
+          },
+        },
+      },
+    );
+
+  await app.listen();
 }
+
 bootstrap();

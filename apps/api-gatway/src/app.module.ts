@@ -1,18 +1,14 @@
 import { Module } from '@nestjs/common';
-
 import {
   ClientsModule,
   Transport,
 } from '@nestjs/microservices';
 
-import { TasksService } from './tasks.service';
-
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name:
-          'NOTIFICATION_SERVICE',
+        name: 'TASK_SERVICE',
 
         transport: Transport.RMQ,
 
@@ -21,8 +17,7 @@ import { TasksService } from './tasks.service';
             'amqp://localhost:5672',
           ],
 
-          queue:
-            'notification_queue',
+          queue: 'task_queue',
 
           queueOptions: {
             durable: true,
@@ -31,7 +26,5 @@ import { TasksService } from './tasks.service';
       },
     ]),
   ],
-
-  providers: [TasksService],
 })
-export class TasksModule {}
+export class AppModule {}

@@ -1,12 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
-import { TaskServiceService } from './task-service.service';
+import { Controller } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
 
 @Controller()
-export class TaskServiceController {
-  constructor(private readonly taskServiceService: TaskServiceService) {}
-
-  @Get()
-  getHello(): string {
-    return this.taskServiceService.getHello();
+export class TasksController {
+  @MessagePattern('get_tasks')
+  getTasks() {
+    return [
+      {
+        id: 1,
+        title: 'Learn RabbitMQ',
+      },
+      {
+        id: 2,
+        title: 'Learn NestJS',
+      },
+    ];
   }
 }
