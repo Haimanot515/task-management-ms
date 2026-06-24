@@ -14,7 +14,7 @@ import { TasksService } from './tasks.service';
         name:
           'NOTIFICATION_SERVICE',
 
-        transport: Transport.RMQ,
+      transport: Transport.RMQ,
 
         options: {
           urls: [
